@@ -1,0 +1,69 @@
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if len(self.items) > 0:
+            return self.items.pop()
+        else:
+            return None
+
+    def peek(self):
+        if len(self.items) > 0:
+            return self.items[-1]
+        else:
+            return None
+
+    def size(self):
+        return len(self.items)
+
+class Calculator:
+    def __init__(self):
+        self.stack = Stack()
+
+    def add(self):
+        a = self.stack.pop()
+        b = self.stack.pop()
+        if a is not None and b is not None:
+            self.stack.push(a + b)
+
+    def subtract(self):
+        a = self.stack.pop()
+        b = self.stack.pop()
+        if a is not None and b is not None:
+            self.stack.push(b - a)
+
+    def multiply(self):
+        a = self.stack.pop()
+        b = self.stack.pop()
+        if a is not None and b is not None:
+            self.stack.push(a * b)
+
+    def divide(self):
+        a = self.stack.pop()
+        b = self.stack.pop()
+        if a is not None and b is not None:
+            self.stack.push(b / a)
+
+calculator = Calculator()
+
+while True:
+    user_input = input("Enter number or operator (+, -, *, /): ")
+    if user_input in ["+", "-", "*", "/"]:
+        if user_input == "+":
+            calculator.add()
+        elif user_input == "-":
+            calculator.subtract()
+        elif user_input == "*":
+            calculator.multiply()
+        elif user_input == "/":
+            calculator.divide()
+        print(calculator.stack.peek())
+    else:
+        try:
+            calculator.stack.push(float(user_input))
+        except ValueError:
+            print("Invalid input")
